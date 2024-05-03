@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,6 +28,11 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
 }
 
 h1 {
@@ -65,4 +70,89 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.backgroundStyle {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100vw;
+}
+
+.barlow-condensed {
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.card {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  /* height: 100%; */
+  background-color: black;
+}
+
+.new-card {
+  padding-right: 15px;
+}
+
+.slide-right {
+  width: 100vw;
+  overflow: hidden;
+  margin-left: 300px;
+  max-width: 600px
+}
+
+.td-slide {
+  animation: 1s slide-right 1s forwards;
+  transform:translateX(-100%);
+}
+
+@keyframes slide-right {
+  to {
+    transform:translateX(0);
+  }
+}
+
+.fade-in-image { 
+  animation: fadeIn 2.5s; 
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0%; }
+  25% { opacity: 25%; }
+  50% { opacity: 50%; }
+  70% { opacity: 75%; }
+  100% { opacity: 100%; }
+}
+
+.slide-right2 {
+  width: 100vw;
+  overflow: hidden;
+  margin-left: 300px;
+  max-width: 1000px
+}
+
+.td-slide2 {
+  animation: 2s slide-right 2s forwards;
+  transform:translateX(-100%);
+}
+
+@keyframes slide-right2 {
+  to {
+    transform:translateX(0);
+  }
+}
+.css-z3c6am-MuiFormControl-root-MuiTextField-root {
+  width: 100%;
 }

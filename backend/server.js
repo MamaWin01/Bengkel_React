@@ -10,5 +10,5 @@ app.get('/', (re, res) => {
 })
 
 app.listen(8001, () => {
-    console.log('localhost:8001');
+    console.log('http://localhost:8001/');
 })
