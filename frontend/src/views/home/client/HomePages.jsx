@@ -4,14 +4,19 @@ import { Modal } from 'react-bootstrap';
 import TextField from "@mui/material/TextField";
 import { Button } from "@mui/material";
 import { initModal } from '../../../helpers/function';
+// input waktu 
 import dayjs from 'dayjs';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { MobileDateTimePicker  } from '@mui/x-date-pickers/MobileDateTimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// icon
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Home() {
     const [value, setValue] = useState(dayjs(Date.now()));
-    const [isShowBook, ModalBookCreate] = useState(false)
+    const [isShowBook, ModalBookCreate] = useState(false);
+    const [isShowSearch, ModalBookSearch] = useState(false);
     var userHasScrolled = false;
     let modalRef = useRef();
 
@@ -44,8 +49,15 @@ function Home() {
         document.addEventListener('mousedown', checkClickOutside);
     })
 
+    
+    const ResultSearch = () => (
+        <div>
+            some result
+        </div>
+    )
+
     return(
-        <div className='row' style={{ backgroundColor: 'white', width:'100vw'}}>
+        <div className='row' style={{ backgroundColor: 'white', width:'99.7vw'}}>
             <div className='col-lg-12 backgroundStyle' style={{
                 backgroundImage: `url('../public/homepage.png')`,
             }}>
@@ -131,7 +143,7 @@ function Home() {
                                 <button onClick={() => {ModalBookCreate(initModal("open","CreateBook"))}} style={{backgroundColor:'#ff4c4c',padding:'15px 70px 15px 70px'}}><b style={{fontSize:'24px'}}>Book an appointment</b></button>
                             </div>
                             <div className='col-lg-12' style={{paddingTop:'5px'}}>
-                                <a href="" style={{color:'#ff4c4c', fontSize:'18px'}}>Check Your Booking status?</a>
+                                <a href="#" onClick={(e) => {e.preventDefault();ModalBookSearch(initModal("open","SearchBook"))}} style={{color:'#ff4c4c', fontSize:'18px'}}>Check Your Booking status?</a>
                             </div>
                         </div>
                     </div>
@@ -151,12 +163,99 @@ function Home() {
                     </div>
                 </div>
             </div>
-            <div className="modal show" style={{ display: 'block', position: 'initial', backgroundColor:'black' }}>
+            <div className="modal show" style={{ display: 'block', position: 'initial'}}>
               <Modal show={isShowBook} style={{marginTop:"190px"}}>
                 <Modal.Header closeButton onClick={() => {ModalBookCreate(false)}}>
                   <Modal.Title className="ms-auto"><><b>BOOKING</b></></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                  <form onSubmit={handleCreate}>
+                  <div className="mb-4" >
+                      <TextField label = "Name"
+                          type="text"
+                          placeholder=""
+                          autoComplete="off"
+                          name="name"
+                          id="name"
+                          className="form-control rounded-0"
+                      />
+                  </div>
+                  <div className="mb-4">
+                      <TextField label = "Phone Number"
+                          required
+                          placeholder=""
+                          autoComplete="off"
+                          name="phone"
+                          id="phone"
+                          className="form-control rounded-0"
+                          onInput = {(e) =>{
+                            e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,9)
+                          }}
+                          InputProps={{
+                            type: "number",
+                            sx: {
+                                '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button': {
+                                    display: 'none'
+                                },
+                                '& input[type=number]': {
+                                    MozAppearance: 'textfield'
+                                },
+                            }
+                          }}
+                      />
+                  </div>
+                  <div className="mb-4" >
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <MobileDateTimePicker 
+                        label="Date"
+                        value={value}
+                        onChange={(newValue) => setValue(newValue)}
+                        orientation='landscape'
+                        ampm={false}
+                        />
+                    </LocalizationProvider>
+                  </div>
+                  <div className="mb-4" >
+                      <TextField label = "Description"
+                          type='text'
+                          placeholder=""
+                          name="desc"
+                          id="desc"
+                          className="form-control rounded-0"
+                          multiline
+                          rows={4}
+                      />
+                  </div>
+                  <div style={{paddingBottom:'15px',width:'20%',margin:'auto'}}>
+                      <Button type='submit' variant="contained" color='success'>Submit</Button>
+                  </div>
+                  </form> 
+                </Modal.Body>
+              </Modal>
+            </div>
+            <div className="modal show" style={{ display: 'block', position: 'initial'}}>
+              <Modal show={isShowSearch} style={{marginTop:"190px"}}>
+                <Modal.Header closeButton onClick={() => {ModalBookSearch(false)}}>
+                  <Modal.Title className="ms-auto"><><b>Check Your Booking</b></></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='mb-3'>
+                        <TextField label = "Search"
+                            type="text"
+                            placeholder=""
+                            autoComplete="off"
+                            name="search"
+                            id="search"
+                            className="form-control rounded-0"
+                            InputProps={{
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <SearchIcon />
+                                  </InputAdornment>
+                                ),
+                              }}
+                        />
+                    </div>
                   <form onSubmit={handleCreate}>
                   <div className="mb-3" >
                       <TextField label = "Name"
@@ -194,11 +293,10 @@ function Home() {
                   </div>
                   <div className="mb-3" >
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                        <DatePicker
-                        label="Controlled picker"
+                        <MobileDateTimePicker 
+                        label="Date"
                         value={value}
                         onChange={(newValue) => setValue(newValue)}
-                        style={{width:''}}
                         />
                     </LocalizationProvider>
                   </div>
@@ -213,8 +311,15 @@ function Home() {
                           rows={4}
                       />
                   </div>
-                  <div style={{paddingBottom:'15px',width:'20%',margin:'auto'}}>
-                      <Button type='submit' variant="contained" color='success'>Submit</Button>
+                  <div className='container'>
+                    <div className='row' style={{display:'flex',justifyContent:'center'}}>
+                            <div className='col-lg-4'>
+                                <Button type='submit' variant="contained" color='success' style={{width:'100px'}}>Edit Book</Button>
+                            </div>
+                            <div className='col-lg-4'>
+                                <Button type='submit' variant="contained" color='error' style={{width:'100px'}}>Cancel Book</Button>
+                            </div>
+                    </div>
                   </div>
                   </form> 
                 </Modal.Body>
