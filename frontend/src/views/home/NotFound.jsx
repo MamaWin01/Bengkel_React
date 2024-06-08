@@ -16,7 +16,7 @@ const NotFound = () => {
   return(
 		<Container>
 		<StyledContent sx={{ textAlign: 'center', alignItems: 'center' }}>
-			<Typography variant="h3" paragraph sx={{ color: 'text.primary'}}>
+			<Typography variant="h3" paragraph>
 				Sorry, page not found!
 			</Typography>
 

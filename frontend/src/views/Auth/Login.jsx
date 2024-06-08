@@ -23,7 +23,7 @@ function Login() {
         if (data.error) {
           setValues({ error: data.error });
         } else {
-          navigate("/home");
+          navigate("/admin/bookList");
           setValues({ ...values, error: "", signedIn: true });
         }
       });
@@ -35,7 +35,7 @@ function Login() {
   };
 
   return (
-    <div className="row" style={{ backgroundColor: "white", width: "98.1vw" }}>
+    <div className="row" style={{ backgroundColor: "white", width: "100vw" }}>
       <navbar style={{ backgroundColor: "green" }}>
         <br />
       </navbar>

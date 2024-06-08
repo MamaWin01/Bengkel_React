@@ -1,0 +1,60 @@
+/* BookList.css */
+
+.table-container {
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .booking-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #7ED321;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  .booking-list-table th,
+  .booking-list-table td {
+    border: 1px solid #7ED321;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .booking-list-table th {
+    background-color: #f2fff2;
+  }
+  
+  /* Pagination styling */
+  .dataTables_wrapper .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .dataTables_wrapper .pagination .paginate_button {
+    color: #7ED321;
+    padding: 8px 12px;
+    margin: 0 5px;
+    border: 1px solid #7ED321;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .dataTables_wrapper .pagination .paginate_button:hover {
+    background-color: #7ED321;
+    color: white;
+  }
+  
+  .dataTables_wrapper .pagination .paginate_button.current {
+    background-color: #7ED321;
+    color: white;
+  }
+
+  option {
+    color: black !important; /* Set the text color of the options */
+  }
+   
