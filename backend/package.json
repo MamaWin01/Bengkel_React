@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "tugas fullstack mern",
+  "description": "tugas bengkel react",
   "main": "index.js",
   "type": "module",
   "scripts": {
