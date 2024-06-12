@@ -65,7 +65,7 @@ const create = async (req, res) => {
 
 const read = async (req, res) => {
   try {
-    const list = await bookList.findOne({BookID: req.params.id,status:0})
+    const list = await bookList.findOne({BookID: req.params.id})
     return res.status(200).json(list)
   } catch (err) {
     return res.status(500).json({

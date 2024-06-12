@@ -3,8 +3,8 @@ import mongoose from 'mongoose'
 const bookingList = new mongoose.Schema({
   id: String,
   name: String,
-  nohp: Number,
-  BookID: Number,
+  nohp: String,
+  BookID: String,
   date: String,
   desc: String,
   status: Number

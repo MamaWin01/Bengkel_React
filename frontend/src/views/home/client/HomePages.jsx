@@ -46,6 +46,7 @@ function Home() {
     desc: '',
     msg: '',
     type: '',
+    status: Number,
     signedIn: false,
   })
 
@@ -123,6 +124,7 @@ function Home() {
             'name':(res.name || ''), 
             'nohp':(res.nohp || ''), 
             'desc':(res.desc || ''),
+            'status':(res.status || ''),
           })
           setValue(dayjs(res.date))
           TextFieldHidden(false);  
@@ -460,14 +462,12 @@ function Home() {
                   autoComplete="off"
                   name="phone"
                   id="phone"
+                  type="number"
                   className="form-control rounded-0"
                   onInput={(e) => {
-                    e.target.value = Math.max(0, parseInt(e.target.value))
-                      .toString()
-                      .slice(0, 13);
+                    e.target.value = e.target.value.toString().slice(0, 13);
                   }}
                   InputProps={{
-                    type: "number",
                     sx: {
                       "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
                         {
@@ -538,7 +538,7 @@ function Home() {
             <div className="mb-3">
               <TextField
                 label="Search"
-                type="text"
+                type="number"
                 placeholder=""
                 autoComplete="off"
                 name="search"
@@ -551,6 +551,15 @@ function Home() {
                       <SearchIcon />
                     </InputAdornment>
                   ),
+                  sx: {
+                    "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                      {
+                        display: "none",
+                      },
+                    "& input[type=number]": {
+                      MozAppearance: "textfield",
+                    },
+                  },
                 }}
               />
             </div>
@@ -578,15 +587,13 @@ function Home() {
                   style={{ display: isHidden ? "none" : "" }}
                   name="phone"
                   id="phone"
+                  type="number"
                   value={editBookList.nohp}
                   className="form-control rounded-0"
                   onInput={(e) => {
-                    e.target.value = Math.max(0, parseInt(e.target.value))
-                      .toString()
-                      .slice(0, 13);
+                    e.target.value = e.target.value.toString().slice(0, 13);
                   }}
                   InputProps={{
-                    type: "number",
                     sx: {
                       "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
                         {
@@ -628,36 +635,37 @@ function Home() {
                 />
               </div>
               <div className="container">
-                <div
-                  className="row"
-                  style={{
-                    display: isHidden ? "none" : "flex",
-                    justifyContent: "center",
-                  }}
-                >
-                  <div className="col-lg-4">
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="success"
-                      style={{ width: "140px" }}
-                      onClick={()=> {UpdateOrDeleteBook(event,'edit')}}
-                    >
-                      Edit Book
-                    </Button>
-                  </div>
-                  <div className="col-lg-4">
-                    <Button
-                      type="button"
-                      variant="contained"
-                      color="error"
-                      style={{ width: "140px" }}
-                      onClick={()=> {UpdateOrDeleteBook(event,'delete')}}
-                    >
-                      Cancel Book
-                    </Button>
-                  </div>
-                </div>
+                  { editBookList.status == 0 ?
+                    <div className="row" style={{display: isHidden ? "none" : "flex",justifyContent: "center",}}>
+                      <div className="col-lg-4">
+                        <Button
+                          type="button"
+                          variant="contained"
+                          color="success"
+                          style={{ width: "140px" }}
+                          onClick={()=> {UpdateOrDeleteBook(event,'edit')}}
+                        >
+                          Edit Book
+                        </Button>
+                      </div>
+                      <div className="col-lg-4">
+                        <Button
+                          type="button"
+                          variant="contained"
+                          color="error"
+                          style={{ width: "140px" }}
+                          onClick={()=> {UpdateOrDeleteBook(event,'delete')}}
+                        >
+                          Cancel Book
+                        </Button>
+                      </div>
+                    </div> :
+                    <div className="col-lg-12">
+                        {editBookList.status == 1 ? <h3 style={{color:'green'}}>The book have been Accepted</h3>: ''}
+                        {editBookList.status == 2 ? <h3 style={{color:'red'}}>The book have been Decline</h3>: ''}
+                        {editBookList.status == 3 ? <h3 style={{color:'red'}}>The book have been Deleted</h3>: ''}
+                    </div>
+                  }
               </div>
             </form>
           </Modal.Body>
