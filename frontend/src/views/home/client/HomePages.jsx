@@ -376,6 +376,7 @@ function Home() {
               <div className="col-lg-12">
                 <button
                   onClick={() => {
+                    setValue(dayjs(Date.now()))
                     ModalBookCreate(initModal("open", "CreateBook"));
                   }}
                   style={{
@@ -427,7 +428,7 @@ function Home() {
         className="modal show"
         style={{ display: "block", position: "initial" }}
       >
-        <Modal show={isShowBook} style={{ marginTop: "10%" }}>
+        <Modal show={isShowBook}>
           <Modal.Header
             closeButton
             onClick={() => {
@@ -520,7 +521,7 @@ function Home() {
         className="modal show"
         style={{ display: "block", position: "initial" }}
       >
-        <Modal show={isShowSearch} style={{ marginTop: "10%" }}>
+        <Modal show={isShowSearch}>
           <Modal.Header
             closeButton
             onClick={() => {
@@ -570,6 +571,7 @@ function Home() {
                   type="text"
                   placeholder=""
                   autoComplete="off"
+                  disabled={editBookList.status != 0 ? true:false}
                   style={{ display: isHidden ? "none" : "" }}
                   name="name"
                   id="name"
@@ -615,6 +617,7 @@ function Home() {
                       label="Date"
                       value={value}
                       onChange={(newValue) => setValue(newValue)}
+                      disabled={editBookList.status != 0 ? true:false}
                     />
                   </LocalizationProvider>
                 )}
@@ -624,6 +627,7 @@ function Home() {
                   label="Description"
                   type="text"
                   placeholder=""
+                  disabled={editBookList.status != 0 ? true:false}
                   style={{ display: isHidden ? "none" : "" }}
                   name="desc"
                   id="desc"
@@ -661,9 +665,9 @@ function Home() {
                       </div>
                     </div> :
                     <div className="col-lg-12">
-                        {editBookList.status == 1 ? <h3 style={{color:'green'}}>The book have been Accepted</h3>: ''}
-                        {editBookList.status == 2 ? <h3 style={{color:'red'}}>The book have been Decline</h3>: ''}
-                        {editBookList.status == 3 ? <h3 style={{color:'red'}}>The book have been Deleted</h3>: ''}
+                        {editBookList.status == 1 ? <h3 style={{color:'green', display:isHidden ? 'none' : ''}}>The book have been Accepted</h3>: ''}
+                        {editBookList.status == 2 ? <h3 style={{color:'red', display:isHidden ? 'none' : ''}}>The book have been Decline</h3>: ''}
+                        {editBookList.status == 3 ? <h3 style={{color:'red', display:isHidden ? 'none' : ''}}>The book have been Deleted</h3>: ''}
                     </div>
                   }
               </div>
@@ -675,7 +679,7 @@ function Home() {
         className="modal show"
         style={{ display: "block", position: "initial" }}
       >
-        <Modal show={ShowMessage} style={{ marginTop: "10%" }}>
+        <Modal show={ShowMessage}>
           <Modal.Header
             closeButton
             onClick={() => {
